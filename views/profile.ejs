@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>21 Savage Fan Site</title>
+    <title>Track your macros</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
@@ -10,57 +10,156 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <h1>Track your macros</h1>
+      
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
     <div class="row">
 
         <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+        <div>
+            <h2>Daily Intake</h2>
+          
+            <div>
+              <p>Macronutrient breakdown:</p>
+              <ul>
+                <li>20-30% fat</li>
+                <li>30% protein</li>
+                <li>40-50% carbohydrates (this may vary depending on your goal)</li>
+              </ul>
 
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
 
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                <% } %>
+            <p>all spices are fine or fresh chiles , fresh squeezed lemon or lime juice.
 
+              Water consumption: 1 GALLON OF WATER
+              
+              </p>
+
+
+              <p>PROTEINS:</p>
+              <ul>
+                <li>Greek Yogurt</li>
+                <li>Cottage Cheese</li>
+                <li>Swiss Cheese</li>
+                <li>Eggs</li>
+                <li>Whey Protein</li>
+                <li>Steak</li>
+                <li>Ground Beef (93% lean)</li>
+                <li>Pork Chips (boneless)</li>
+                <li>Chicken Breast (boneless and skinless)</li>
+                <li>Turkey Breast</li>
+                <li>Yellowfin Tuna</li>
+                <li>Halibut</li>
+                <li>Octopus</li>
+                <li>Sockeye Salmon</li>
+                <li>Tilapia</li>
+                <li>Anchovies</li>
+                <li>Corned Beef</li>
+                <li>Light Tuna</li>
+                <li>Sardines</li>
+                <li>Roast Beef</li>
+                <li>Canadian Bacon</li>
+                <li>Roasted Turkey Breast</li>
+                <li>Beef Jerky</li>
+                <li>Tofu</li>
+              </ul>
+            
+              <p>CARBS:</p>
+              <ul>
+                <li>Cereal</li>
+                <li>Whole Grain</li>
+                <li>Bread</li>
+                <li>Pasta</li>
+                <li>Rice</li>
+                <li>Beans (pinto, black, etc.)</li>
+                <li>Oatmeal</li>
+                <li>Cream of Wheat</li>
+                <li>Cream of Rice</li>
+                <li>Potatoes</li>
+                <li>Sweet Potatoes, Yams</li>
+                <li>Fiber Bars</li>
+                <li>Sea Salt Chips</li>
+                <li>Mashed Potatoes</li>
+                <li>Bagels</li>
+                <li>Tortillas</li>
+              </ul>
+            
+              <p>FATS:</p>
+              <ul>
+                <li>Olive Oil</li>
+                <li>Sunflower Oil</li>
+                <li>Safflower Oil</li>
+                <li>Flaxseed Oil</li>
+                <li>Walnuts</li>
+                <li>Pistachios</li>
+                <li>Nuts</li>
+                <li>Almonds</li>
+                <li>Peanuts</li>
+                <li>Avocados</li>
+                <li>Coconut Oil</li>
+                <li>Peanut Butter</li>
+                <li>Almond Butter</li>
+                <li>Trail Mix</li>
+              </ul>
             </div>
-        </div>
-        <div class="col-sm-6">
-          <h3>Messages</h3>
-          <ul class="messages">
-          <% for(var i=0; i<messages.length; i++) {%>
-            <li class="message">
-              <span><%= messages[i].name %></span>
-              <span><%= messages[i].msg %></span>
-              <span><%= messages[i].thumbUp %></span>
-              <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-              <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
-              <span><i class="fa fa-trash" aria-hidden="true"></i></span>
-            </li>
-          <% } %>
-          </ul>
-
-          <h2>Add a message</h2>
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <input type="text" value="<%= user.local.email %>" name="name">
-            <input type="text" placeholder="message" name="msg">
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        <% } %>
-
+            
+              <p>Keep portion control in mind, as fats are higher in calories. A little bit of healthy fat goes a long way.</p>
+            </div>
+          
+            <ul>
+              <% times.forEach((time) => { %>
+                <li>
+                  <span><%= time.type %></span>: 
+                  <span><%= time.item %></span> 
+                  (<span><%= time.cals %></span> CAL, 
+                  <span><%= time.pro %></span> g protein, 
+                  <span><%= time.carbs %></span> g carbs)
+                </li>
+              <% }); %>
+            </ul>
+          
+            <div>
+              <h3 id="jim"></h3>
+              <form action="/times" method="POST">
+                <label>
+                  Meal or snack:
+                  <select name="type">
+                    <option value="">Select an option</option>
+                    <option value="meal">Meal</option>
+                    <option value="snack">Snack</option>
+                  </select>
+                </label>
+          
+                <label>
+                  What did you eat?
+                  <input type="text" name="item">
+                </label>
+          
+                <label>
+                  Total calories:
+                  <input type="number" name="cals">
+                </label>
+          
+                <label>
+                  Protein (g):
+                  <input type="number" name="pro">
+                </label>
+          
+                <label>
+                  Carbohydrates (g):
+                  <input type="number" name="carbs">
+                </label>
+          
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          
+            <button id="delete-button">Clear Meals</button>
+          </div>
+          
 </div>
+
 
 <script src="main.js"></script>
 

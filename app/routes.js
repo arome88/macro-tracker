@@ -9,14 +9,14 @@ module.exports = function(app, passport, db) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('messages').find().toArray((err, result) => {
-          if (err) return console.log(err)
-          res.render('profile.ejs', {
-            user : req.user,
-            messages: result
-          })
+      db.collection('cals').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        res.render('profile.ejs', {
+          user : req.user,
+          times: result
         })
-    });
+      })
+  });
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
@@ -28,35 +28,26 @@ module.exports = function(app, passport, db) {
 
 // message board routes ===============================================================
 
-    app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
-        if (err) return console.log(err)
-        console.log('saved to database')
-        res.redirect('/profile')
-      })
-    })
+app.post('/times', (req, res) => {
+  db.collection('cals').save({type: req.body.type, item: req.body.item, cals: req.body.cals, pro: req.body.pro, carbs: req.body.carbs}, (err, result) => {
+    if (err) return console.log(err)
+    console.log('saved to database')
+    res.redirect('/profile')
+  })
+})
 
-    app.put('/messages', (req, res) => {
-      db.collection('messages')
-      .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
-        $set: {
-          thumbUp:req.body.thumbUp + 1
+app.delete('/times', (req, res) => {
+  db.collection('cals').deleteMany(
+    { }
+  )
+    .then(result => {
+      if (result.deletedCount === 0) {
+          return res.json('No entry to delete')
         }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
+      res.json(`Deleted entry`)
     })
-
-    app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
-        if (err) return res.send(500, err)
-        res.send('Message deleted!')
-      })
-    })
+    .catch(error => console.error(error))
+})
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
