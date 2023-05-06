@@ -96,7 +96,6 @@ app.delete('/times', (req, res) => {
             res.redirect('/profile');
         });
     });
-
 };
 
 // route middleware to ensure user is logged in

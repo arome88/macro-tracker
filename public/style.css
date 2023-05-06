@@ -1,7 +1,36 @@
-body{
-  padding-top:80px;
-  word-wrap:break-word;
+body {
+  padding-top: 80px;
+  word-wrap: break-word;
+  background-image: url(img/download-1.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-weight:900;
 }
-img{
-  height: 200px;
+
+
+#delete-button{
+  align-items: center;
+}
+.display{
+  list-style-type: none;
+}
+
+.food-lists {
+  display: flex;
+}
+
+.proteins, .carbs, .fats {
+  flex-basis: 33.33%;
+}
+
+.proteins {
+  float: left;
+}
+
+.carbs {
+  float: left;
+}
+
+.fats {
+  float: left;
 }
